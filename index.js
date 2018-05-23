@@ -15,7 +15,7 @@ function addToSql(obj){
     };
     console.log(JSON.stringify(toAdd,null,4));
 
-    db.run('INSERT INTO hw4 VALUES(?, ?, ?, ?, ?, ?)', [delay, rtt12, rtt23, rtt34, source, dest]);
+    db.run('INSERT INTO hw4 VALUES(?, ?, ?, ?, ?, ?)', [toAdd.delay, toAdd.rtt12, toAdd.rtt23, toAdd.rtt34, toAdd.source, toAdd.dest]);
 }
 
 Syslogd(info => {
