@@ -1,16 +1,21 @@
 const Syslogd = require('syslogd');
+const sqlite3 = require('sqlite3').verbose();
+
+const db = new sqlite3.Database('./db/sample.db');
 
 let logs = [];
 function addToSql(obj){
     let toAdd = {
-        delay: (obj.server04.time - obj.server01.time)*1000,
-        rtt12: (obj.server02.time - obj.server01.time)*1000,
-        rtt23: (obj.server03.time - obj.server02.time)*1000,
-        rtt34: (obj.server04.time - obj.server03.time)*1000,
+        delay: parseInt((obj.server04.time - obj.server01.time)*1000),
+        rtt12: parseInt((obj.server02.time - obj.server01.time)*1000),
+        rtt23: parseInt((obj.server03.time - obj.server02.time)*1000),
+        rtt34: parseInt((obj.server04.time - obj.server03.time)*1000),
         source: (obj.server01.remote),
         dest: (obj.server04.server)
     };
     console.log(JSON.stringify(toAdd,null,4));
+
+    db.run('INSERT INTO hw4 VALUES(?, ?, ?, ?, ?, ?)', [delay, rtt12, rtt23, rtt34, source, dest]);
 }
 
 Syslogd(info => {
@@ -77,6 +82,8 @@ Syslogd(info => {
         console.error(err);
         return;
     }
+      
+    db.run("CREATE TABLE IF NOT EXISTS hw4 (delay INTEGER, rtt12 INTEGER, rtt23 INTEGER, rtt34 INTEGER, source TEXT, dest TEXT)");
 
     console.log('start')
 })
