@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/StefanCenusa/pcd-syslogd/issues"
   },
-  "homepage": "https://github.com/StefanCenusa/pcd-syslogd#readme"
+  "homepage": "https://github.com/StefanCenusa/pcd-syslogd#readme",
+  "dependencies": {
+    "syslogd": "^1.1.2"
+  }
 }
