@@ -15,15 +15,22 @@ Syslogd(info => {
         , msg: 'info'
     }
     */
-    console.log(info);
 
     const {tag, msg} = info;
 
     if (tag.startsWith('server')) {
+        const items = msg.split(' ');
+        const [time, remote, server] = items;
+
     	console.log('sending to sql');
-    	console.log(msg);
+    	console.log(tag, time, remote, server);
     }
 
-}).listen(514, function(err) {
+}).listen(514, err => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
     console.log('start')
 })
