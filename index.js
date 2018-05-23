@@ -1,7 +1,7 @@
 const Syslogd = require('syslogd');
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('./db/sample.db');
+const db = new sqlite3.Database('/data/sample.db');
 
 let logs = [];
 function addToSql(obj){
